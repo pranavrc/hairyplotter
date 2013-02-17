@@ -32,6 +32,8 @@ def serialize():
 
     cPickle.dump(dataset, open('dataset.p', 'wb'))
 
+    return True
+
 def retSimilarity(dataset, reference, sim):
     mismatch = []
     xfilter = 0

@@ -13,6 +13,10 @@ Eli Bendersky (eliben@gmail.com)
 License: this code is in the public domain
 Last modified: 07.08.2009
 """
+
+""" Importing factory changes for pattern classification.
+Pranav Ravichandran <me@onloop.net>"""
+
 import random, sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -23,7 +27,7 @@ from com_monitor import ComMonitorThread
 from eblib.serialutils import full_port_name, enumerate_serial_ports
 from eblib.utils import get_all_from_queue, get_item_from_queue
 from livedatafeed import LiveDataFeed
-
+import factory
 
 class PlottingDataMonitor(QMainWindow):
     def __init__(self, parent=None):
@@ -36,6 +40,7 @@ class PlottingDataMonitor(QMainWindow):
         self.livefeed = LiveDataFeed()
         self.temperature_samples = []
         self.timer = QTimer()
+        self.xydata = []
         
         self.create_menu()
         self.create_main_frame()
@@ -277,6 +282,13 @@ class PlottingDataMonitor(QMainWindow):
             
             xdata = [s[0] for s in self.temperature_samples]
             ydata = [s[1] for s in self.temperature_samples]
+
+            reference = process()
+            self.xydata.append((xdata, ydata))
+            finalScore = scale([retSimilarity(self.xydata, reference, 1), \
+                           retSimilarity(self.xydata, reference, 2), \
+                           retSimilarity(self.xydata, reference, 3)])
+            finalPosition = classify(finalScore)
             
             avg = sum(ydata) / float(len(ydata))
                 
@@ -330,6 +342,10 @@ def main():
     form.show()
     app.exec_()
 
+def process():
+    serialize()
+    reference = cPickle.load(open('dataset.p', 'rb'))
+    return reference
 
 if __name__ == "__main__":
     main()
