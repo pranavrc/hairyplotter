@@ -95,6 +95,6 @@ if __name__ == '__main__':
 	# Event Loop to listen on serial port for live data feed.
 	while True:
 		if listenerObj.listen():
-			dataList = cPickle.load('read.p')
+			dataList = cPickle.load(open('read.p', 'r'))
 			plotterObj = Plotter(scaleDown(dataList))
 			plotterObj.plotandsave()
