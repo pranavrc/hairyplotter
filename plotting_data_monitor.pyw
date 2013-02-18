@@ -283,13 +283,12 @@ class PlottingDataMonitor(QMainWindow):
             xdata = [s[0] for s in self.temperature_samples]
             ydata = [s[1] for s in self.temperature_samples]
 
-            reference = process()
-            self.xydata.append((xdata, ydata))
-            finalScore = scale([retSimilarity(self.xydata, reference, 1), \
-                           retSimilarity(self.xydata, reference, 2), \
-                           retSimilarity(self.xydata, reference, 3)])
-            finalPosition = classify(finalScore)
-            
+            ref = cPickle.load(open('dataset.p', 'rb'))
+            xydata = zip(xdata, ydata)
+            print factory.classify(scale(retSimilarity(xydata, ref, 1), \
+                                         retSimilarity(xydata, ref, 2), \
+                                         retSimilarity(xydata, ref, 3)]))
+
             avg = sum(ydata) / float(len(ydata))
                 
             self.plot.setAxisScale(Qwt.QwtPlot.xBottom, xdata[0], max(20, xdata[-1]))
