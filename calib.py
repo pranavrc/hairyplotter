@@ -49,11 +49,18 @@ class Calibrator:
 
         for eachPos in range(len(self.positions)):
             pos = self.positions.keys()[eachPos]
-            print 'When the timer ends, make the following eye gesture: %s' % pos
+            print 'Make the following eye gesture: %s' % pos
             self.countdown(3)
 
             for i in range(upper):
                 self.positions[pos].append(int(serialObj.readline().strip('\x00\r\n')))
+
+            goAhead = str(raw_input('Continue? (y(default)/n) '))
+            
+            if goAhead == 'n':
+                sys.exit(0)
+            else:
+                continue
 
         serialObj.close()
 
