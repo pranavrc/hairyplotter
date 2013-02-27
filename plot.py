@@ -23,13 +23,18 @@ class Listener:
             Methods: listen(int, int)
 	'''
 
-	def __init__(self, lsPort = 'COM10', lsTimeout = 5):
+	def __init__(self, lsPort = '/dev/ttyUSB0', lsTimeout = 5):
 		''' Constructor.
 		    Params: lsPort - Port number. 
 		            lsTimeout - Port Activity Timeout. '''
 		self.serialObj = serial.Serial(lsPort, lsTimeout)
-		self.serialObj.open()
-		self.data = []
+        
+        if self.serialObj.isOpen():
+            self.serialObj.close()
+        else:
+            self.serialObj.open()
+
+        self.data = []
 
 	def listen(self, countLimit = 20, byteStream = 100):
 		''' Serial Port Open, Read and Pickle.
