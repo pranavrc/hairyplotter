@@ -53,7 +53,8 @@ class Calibrator:
             self.countdown(3)
 
             for i in range(upper):
-                self.positions[pos].append(int(serialObj.readline().strip('\x00\r\n')))
+                (l, r) = serialObj.readline().strip('\x00\r\n').strip().split(',')
+                self.positions[pos].append((int(l), int(r)))
 
             goAhead = str(raw_input('Continue? (y(default)/n) '))
             
