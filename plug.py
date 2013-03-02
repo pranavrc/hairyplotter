@@ -5,7 +5,7 @@ import calib
 import serial
 import cPickle
 
-a = Calibrator()
+factory.serialize()
 readingList = []
 
 port = str(raw_input("Serial Port: "))
@@ -17,8 +17,9 @@ ref = ref.values()
 ref = zip(ref, [0] * len(ref))
 
 while True:
-    while count in range(a.maxVal):
-        readingList.append(int(ser.readline().strip('\x00\r\n')))
+    while count in range(factory.datasetLength):
+        (l, r) = ser.readline().strip('\x00\r\n').strip().split(',')
+        readingList.append((int(l), int(r)))
         readingList = zip(readingList, [0] * len(readingList))
         scaled = factory.scale([factory.retSimilarity(ref, readingList, 1), \
                                 factory.retSimilarity(ref, readingList, 2), \

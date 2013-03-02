@@ -19,6 +19,8 @@ positions = {1 : 'BLINK',
              8 : 'LEFT',
              9 : 'UP-LEFT'}
 
+datasetLength = 0
+
 def serialize():
     dataset = []
 
