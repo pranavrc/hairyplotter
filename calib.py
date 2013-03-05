@@ -42,7 +42,7 @@ class Calibrator:
 
     #@loopifier(len(self.positions))
     def calibrate(self, upper):
-        serialObj = self.openSerialPort('/dev/ttyACM0', 9600)
+        serialObj = self.openSerialPort('/dev/ttyUSB1', 9600)
 
         print 'Stabilizing serial data'
         self.countdown(3)
@@ -52,10 +52,16 @@ class Calibrator:
             print 'Make the following eye gesture: %s' % pos
             self.countdown(3)
 
-            for i in range(upper):
-                (l, r) = serialObj.readline().strip('\x00\r\n').strip().split(',')
-                self.positions[pos].append((int(l), int(r)))
-
+            i = 0
+            while (i < upper):
+                try:
+                    (l, r) = serialObj.readline().strip('\x00\r\n').strip().split(',')
+                    self.positions[pos].append((int(l), int(r)))
+                except:
+                    continue
+                
+                i += 1
+            
             goAhead = str(raw_input('Continue? (y(default)/n) '))
             
             if goAhead == 'n':
