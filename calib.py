@@ -4,6 +4,7 @@ import time
 import serial
 import cPickle
 import sys
+import os
 
 class Calibrator:
     positions = {'BLINK' : [],
@@ -17,7 +18,21 @@ class Calibrator:
                  'UP-LEFT' : []}
 
     def __init__(self):
-        self.maxVal = int(raw_input("How many values per dataset? "))
+        if os.path.exists('dataset.p'):
+            calAgain = str(raw_input('Calibrated dataset exists already. Recalibrate? (y(default)/n): '))
+            if calAgain == 'n':
+                sys.exit(0)
+            else:
+                pass
+
+        while True:
+            try:
+                self.maxVal = int(raw_input("How many values per dataset? "))
+                break
+            except:
+                print 'Enter valid integer value.'
+                continue
+
         self.calibrate(self.maxVal)
         self.store(self.positions)
         #self.acv = self.read()
@@ -27,7 +42,7 @@ class Calibrator:
             print bufferTime
             time.sleep(1)
             bufferTime -= 1
-    
+
         return True
 
     def openSerialPort(self, port, baudrate):
@@ -59,11 +74,11 @@ class Calibrator:
                     self.positions[pos].append((int(l), int(r)))
                 except:
                     continue
-                
+
                 i += 1
-            
+
             goAhead = str(raw_input('Continue? (y(default)/n) '))
-            
+
             if goAhead == 'n':
                 sys.exit(0)
             else:
