@@ -19,19 +19,19 @@ ref = ref.values()
 while True:
     readingList = []
     count = 0
-    
+
     while (count < a.maxVal):
         try:
             (l, r) = ser.readline().strip('\x00\r\n').strip().split(',')
             readingList.append((int(l), int(r)))
         except:
             continue
-        
+
         count += 1
         #readingList = zip(readingList, [0] * len(readingList))
-    
+
     scaled = factory.scale([factory.retSimilarity(readingList, ref, 1), \
                             factory.retSimilarity(readingList, ref, 2), \
                             factory.retSimilarity(readingList, ref, 3)])
-        
+
     print factory.classify(scaled)

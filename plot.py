@@ -25,10 +25,10 @@ class Listener:
 
 	def __init__(self, lsPort = '/dev/ttyUSB0', lsTimeout = 5):
 		''' Constructor.
-		    Params: lsPort - Port number. 
+		    Params: lsPort - Port number.
 		            lsTimeout - Port Activity Timeout. '''
 		self.serialObj = serial.Serial(lsPort, lsTimeout)
-        
+
         if self.serialObj.isOpen():
             self.serialObj.close()
         else:
@@ -59,7 +59,7 @@ class Plotter:
 	'''
 	def __init__(self, initList, saveFile = 'plot.jpg', timeScale = 5):
 		''' Constructor.
-		    Params: initList - List of data from the pickled listener output. 
+		    Params: initList - List of data from the pickled listener output.
 		            saveFile - File to write the plot to.
 			    timeScale - Factor to scale x-axis values. '''
 		self.xParams = []

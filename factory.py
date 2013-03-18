@@ -25,7 +25,7 @@ def serialize():
     dataset = []
 
     #datasetCount = int(raw_input("How many data sets? "))
-    datasetCount = 9 
+    datasetCount = 9
 
     datasetLength = int(raw_input("Length of each dataset: "))
 
@@ -90,7 +90,7 @@ def retSimilarity(dataset, reference, sim):
             top = cumulativeSum - float(firstSum * secondSum / refLength)
             bottom = sqrt((firstSumSq - float(pow(firstSum, 2) / refLength)) * \
                           (secondSumSq - float(pow(secondSum, 2) / refLength)))
-            
+
             if bottom == 0 or top == 0:
                 mismatch[eachRefSet] = 0
             else:
@@ -113,7 +113,7 @@ def scale(stuff):
     scaledScore = []
     for x in range(len(stuff[0])):
         scaledScore.append(0)
-        
+
         for y in range(len(stuff)):
             scaledScore[x] += stuff[y][x]
 
