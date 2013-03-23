@@ -22,5 +22,3 @@ void loop() {
   // after the last reading:
   delay(2);                     
 }
-
-

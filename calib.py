@@ -18,7 +18,7 @@ class Calibrator:
                  'UP-LEFT' : []}
 
     def __init__(self):
-        if os.path.exists('dataset.p'):
+        if os.path.exists('datasets.p'):
             calAgain = str(raw_input('Calibrated dataset exists already. Recalibrate? (y(default)/n): '))
             if calAgain == 'n':
                 sys.exit(0)
@@ -87,10 +87,10 @@ class Calibrator:
         serialObj.close()
 
     def store(self, dataset):
-        cPickle.dump(dataset, open('dataset.p', 'wb'))
+        cPickle.dump(dataset, open('datasets.p', 'wb'))
 
     def read(self):
-        return cPickle.load(open('dataset.p', 'rb'))
+        return cPickle.load(open('datasets.p', 'rb'))
 
 if __name__ == "__main__":
     a = Calibrator()

@@ -18,7 +18,7 @@ port = str(raw_input("Serial Port: "))
 baudrate = str(raw_input("Baud Rate: "))
 ser = serial.Serial(port, baudrate)
 
-ref = cPickle.load(open('dataset.p', 'rb'))
+ref = cPickle.load(open('datasets.p', 'rb'))
 ref = ref.values()
 #ref = zip(ref, [0] * len(ref))
 

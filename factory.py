@@ -45,7 +45,7 @@ def serialize():
 
             dataset[count].append(data)
 
-    cPickle.dump(dataset, open('dataset.p', 'wb'))
+    cPickle.dump(dataset, open('datasets.p', 'wb'))
 
     return True
 
@@ -123,7 +123,7 @@ def scale(stuff):
 
 if __name__ == "__main__":
     #serialize()
-    #a = cPickle.load(open('dataset.p', 'rb'))
+    #a = cPickle.load(open('datasets.p', 'rb'))
     a = [[(1,500),(3,510),(2,520),(3,530),(4,550),(5,600)]]
     b = [(100,624),(531,652),(7,11800),(9,120),(2,500),(1,602)]
     c = scale([retSimilarity(b, a, 1), retSimilarity(b, a, 2), retSimilarity(b, a, 3)])
