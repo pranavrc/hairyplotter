@@ -29,7 +29,6 @@ void setup()
 	values3 = new float[width];
 	smooth();
 	PFont font;
-	font = loadFont("Gautami-30.vlw");
 	textFont(font);
 }
 

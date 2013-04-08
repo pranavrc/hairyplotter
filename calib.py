@@ -18,13 +18,6 @@ class Calibrator:
                  'UP-LEFT' : []}
 
     def __init__(self):
-        if os.path.exists('datasets.p'):
-            calAgain = str(raw_input('Calibrated dataset exists already. Recalibrate? (y(default)/n): '))
-            if calAgain == 'n':
-                sys.exit(0)
-            else:
-                pass
-
         while True:
             try:
                 self.maxVal = int(raw_input("How many values per dataset? "))
@@ -32,6 +25,13 @@ class Calibrator:
             except:
                 print 'Enter valid integer value.'
                 continue
+
+        if os.path.exists('datasets.p'):
+            calAgain = str(raw_input('Calibrated dataset exists already. Recalibrate? (y(default)/n): '))
+            if calAgain == 'n':
+                return 
+            else:
+                pass
 
         self.calibrate(self.maxVal)
         self.store(self.positions)
@@ -57,7 +57,7 @@ class Calibrator:
 
     #@loopifier(len(self.positions))
     def calibrate(self, upper):
-        serialObj = self.openSerialPort('/dev/ttyUSB1', 9600)
+        serialObj = self.openSerialPort('/dev/ttyACM0', 9600)
 
         print 'Stabilizing serial data'
         self.countdown(3)
