@@ -70,7 +70,7 @@ class Calibrator:
             i = 0
             while (i < upper):
                 try:
-                    (l, r) = serialObj.readline().strip('\x00\r\n').strip().split(',')
+                    (l, r, _) = serialObj.readline().strip('\x00\r\n').strip().split(',')
                     self.positions[pos].append((int(l), int(r)))
                 except:
                     continue

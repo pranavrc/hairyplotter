@@ -26,7 +26,7 @@ while True:
 
     while (count < a.maxVal):
         try:
-            (l, r) = ser.readline().strip('\x00\r\n').strip().split(',')
+            (l, r, _) = ser.readline().strip('\x00\r\n').strip().split(',')
             readingList.append((int(l), int(r)))
         except:
             continue
@@ -38,8 +38,10 @@ while True:
                             factory.retSimilarity(readingList, ref, 3)])
 
     direction = factory.classify(scaled)
-
-    mouse.move(mouse.position()[0], mouse.position()[1])
+    print direction
+    
+    l, h = mouse.position()[0], mouse.position()[1]
+    mouse.move(l, h)
 
     if direction == "UP":
         for count in range(100):

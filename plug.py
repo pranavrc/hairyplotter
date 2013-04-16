@@ -20,7 +20,8 @@ def stream_data(ser, ref, maxVal):
         count = 0
         while (count < maxVal):
             try:
-                (l, r) = ser.readline().strip('\x00\r\n').strip().split(',')
+                (l, r, _) = ser.readline().strip('\x00\r\n').strip().split(',')
+                print l, r
                 readingList.append((int(l), int(r)))
             except:
                 continue
