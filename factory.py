@@ -17,7 +17,8 @@ positions = {1 : 'BLINK',
              6 : 'DOWN',
              7 : 'DOWN-LEFT',
              8 : 'LEFT',
-             9 : 'UP-LEFT'}
+             9 : 'UP-LEFT'
+            10 : 'STRAIGHT'}
 
 datasetLength = 0
 
@@ -25,7 +26,7 @@ def serialize():
     dataset = []
 
     #datasetCount = int(raw_input("How many data sets? "))
-    datasetCount = 9
+    datasetCount = len(positions)
 
     datasetLength = int(raw_input("Length of each dataset: "))
 

@@ -15,7 +15,8 @@ class Calibrator:
                  'DOWN' : [],
                  'DOWN-LEFT' : [],
                  'LEFT' : [],
-                 'UP-LEFT' : []}
+                 'UP-LEFT' : [],
+                 'STRAIGHT' : []}
 
     def __init__(self):
         while True:

@@ -42,8 +42,10 @@ while True:
     
     l, h = mouse.position()[0], mouse.position()[1]
     mouse.move(l, h)
-
-    if direction == "UP":
+    
+    if direction == "STRAIGHT":
+        pass
+    elif direction == "UP":
         for count in range(100):
             mouse.move(l, h)
             h -= verticalMove

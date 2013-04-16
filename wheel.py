@@ -31,7 +31,7 @@ while True:
     direction = factory.classify(scaled)
     print direction
 
-    if direction == "UP":
+    if direction == "UP" or direction == "STRAIGHT":
         ser.write(b'1')
     elif "RIGHT" in direction:
         ser.write(b'2')
