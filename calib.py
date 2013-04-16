@@ -61,12 +61,12 @@ class Calibrator:
         serialObj = self.openSerialPort('/dev/ttyACM0', 9600)
 
         print 'Stabilizing serial data'
-        self.countdown(3)
+        self.countdown()
 
         for eachPos in range(len(self.positions)):
             pos = self.positions.keys()[eachPos]
             print 'Make the following eye gesture: %s' % pos
-            self.countdown(3)
+            self.countdown()
 
             i = 0
             while (i < upper):
