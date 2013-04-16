@@ -38,7 +38,7 @@ class Calibrator:
         self.store(self.positions)
         #self.acv = self.read()
 
-    def countdown(self, bufferTime = 3, printCount = True):
+    def countdown(self, bufferTime = 5, printCount = True):
         while bufferTime > 0:
             print bufferTime
             time.sleep(1)
