@@ -14,6 +14,7 @@ from PyQt4.Qt import *
 from PyQt4.Qwt5 import *
 from PyQt4.Qwt5.qplt import *
 from PIL import Image
+from matplotlib import pyplot as pplt
 
 app = QApplication([])
 
@@ -94,12 +95,42 @@ def showImg(filePath = 'plot.jpg'):
 	img = Image.open(filepath)
 	img.show()
 
+def livePlot():
+    ser = serial.Serial('/dev/ttyUSB0', 9600)
+
+    pplt.ion()
+
+    xAxis = [0] * 50
+    pplt.axes()
+
+    plotLine, = pplt.plot(xAxis)
+    pplt.ylim([0, 100])
+
+    while True:
+        try:
+            (l, r, _) = ser.readline().strip('\x00\r\n').strip().split(',')
+        except:
+            continue
+
+        minXAxis = float(min(xAxis)) - 10
+        maxXAxis = float(max(xAxis)) + 10
+
+        pplt.ylim([minXAxis, maxXAxis])
+
+        xAxis.append(l)
+        del xAxis[0]
+
+        plotLine.set_xdata(np.arange(len(xAxis)))
+        plotLine.set_ydata(xAxis)
+        pplt.draw()
+
 if __name__ == '__main__':
-	listenerObj = Listener()
+	#listenerObj = Listener()
 
 	# Event Loop to listen on serial port for live data feed.
-	while True:
-		if listenerObj.listen():
-			dataList = cPickle.load(open('read.p', 'r'))
-			plotterObj = Plotter(scaleDown(dataList))
-			plotterObj.plotandsave()
+	#while True:
+	#	if listenerObj.listen():
+	#		dataList = cPickle.load(open('read.p', 'r'))
+	#		plotterObj = Plotter(scaleDown(dataList))
+	#		plotterObj.plotandsave()
+    livePlot()
