@@ -38,7 +38,7 @@ class Calibrator:
         self.store(self.positions)
         #self.acv = self.read()
 
-    def countdown(self, bufferTime = 5, printCount = True):
+    def countdown(self, bufferTime = 3, printCount = True):
         while bufferTime > 0:
             print bufferTime
             time.sleep(1)
@@ -65,9 +65,17 @@ class Calibrator:
 
         for eachPos in range(len(self.positions)):
             pos = self.positions.keys()[eachPos]
+
             print 'Make the following eye gesture: %s' % pos
             self.countdown()
+          
+            #goAhead = str(raw_input('Calibrate? (y(default)/n) '))
 
+            #if goAhead == 'n':
+            #    sys.exit(0)
+            #else:
+                #continue
+                #pass
             i = 0
             while (i < upper):
                 try:

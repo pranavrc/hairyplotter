@@ -11,8 +11,8 @@ import serial
 import cPickle
 import numpy as np
 from PyQt4.Qt import *
-from PyQt4.Qwt5 import *
-from PyQt4.Qwt5.qplt import *
+#from PyQt4.Qwt5 import *
+#from PyQt4.Qwt5.qplt import *
 from PIL import Image
 from matplotlib import pyplot as pplt
 
@@ -24,7 +24,7 @@ class Listener:
             Methods: listen(int, int)
     '''
 
-    def __init__(self, lsPort = '/dev/ttyUSB0', lsTimeout = 5):
+    def __init__(self, lsPort = '/dev/ttyACM1', lsTimeout = 5):
         ''' Constructor.
             Params: lsPort - Port number.
                     lsTimeout - Port Activity Timeout. '''
@@ -96,15 +96,17 @@ def showImg(filePath = 'plot.jpg'):
     img.show()
 
 def livePlot():
-    ser = serial.Serial('/dev/ttyUSB0', 9600)
+    ser = serial.Serial('/dev/ttyACM1', 9600)
 
     pplt.ion()
 
     xAxis = [0] * 50
+    yAxis = [0] * 50
     pplt.axes()
 
     plotLine, = pplt.plot(xAxis)
-    pplt.ylim([0, 100])
+    plotLine2, = pplt.plot(yAxis)
+    pplt.ylim([0, 1023])
 
     while True:
         try:
@@ -112,16 +114,22 @@ def livePlot():
         except:
             continue
 
-        minXAxis = float(min(xAxis)) - 10
-        maxXAxis = float(max(xAxis)) + 10
+        #minXAxis = float(min(xAxis)) - 10
+        #maxXAxis = float(max(xAxis)) + 10
 
-        pplt.ylim([minXAxis, maxXAxis])
+        #pplt.ylim([minXAxis, maxXAxis])
 
         xAxis.append(l)
+        yAxis.append(r)
         del xAxis[0]
+        del yAxis[0]
 
         plotLine.set_xdata(np.arange(len(xAxis)))
         plotLine.set_ydata(xAxis)
+
+        plotLine2.set_xdata(np.arange(len(yAxis)))
+        plotLine2.set_ydata(yAxis)
+
         pplt.draw()
 
 if __name__ == '__main__':

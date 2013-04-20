@@ -7,6 +7,7 @@ import cPickle
 
 a = calib.Calibrator()
 ser = serial.Serial('/dev/ttyACM0', 9600)
+ser2 = serial.Serial('/dev/ttyUSB0', 9600)
 
 ref = cPickle.load(open('datasets.p', 'rb'))
 ref = ref.values()
@@ -32,10 +33,10 @@ while True:
     print direction
 
     if direction == "UP" or direction == "STRAIGHT":
-        ser.write(b'1')
+        ser2.write(b'1')
     elif "RIGHT" in direction:
-        ser.write(b'2')
+        ser2.write(b'2')
     elif "LEFT" in direction:
-        ser.write(b'3')
+        ser2.write(b'3')
     elif direction == "BLINK" or direction == "DOWN":
         ser.write(b'4')
