@@ -37,6 +37,8 @@ def stream_data(ser, ref, maxVal):
 
         yield 'data: %s\n\n' %  factory.classify(scaled)
 
+        ser.flushInput()
+
 @app.route('/stream')
 def stream():
     a = calib.Calibrator()

@@ -132,6 +132,8 @@ def livePlot():
 
         pplt.draw()
 
+        ser.flushInput()
+
 if __name__ == '__main__':
     #listenerObj = Listener()
 

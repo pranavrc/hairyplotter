@@ -93,6 +93,8 @@ class Calibrator:
             else:
                 continue
 
+            serialObj.flushInput()
+
         serialObj.close()
 
     def store(self, dataset):

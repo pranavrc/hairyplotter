@@ -40,3 +40,5 @@ while True:
         ser2.write(b'3')
     elif direction == "BLINK" or direction == "DOWN":
         ser.write(b'4')
+
+    ser.flushInput()

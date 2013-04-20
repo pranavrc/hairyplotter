@@ -84,3 +84,5 @@ while True:
     elif direction == "BLINK":
         l, h = mouse.position()[0], mouse.position[1]
         mouse.click(l, h, 1)
+
+    ser.flushInput()
