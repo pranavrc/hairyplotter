@@ -4,6 +4,7 @@ import factory
 import calib
 import serial
 import cPickle
+from matplotlib import pyplot as pplt
 
 a = calib.Calibrator()
 ser = serial.Serial('/dev/ttyACM0', 9600)
@@ -11,6 +12,16 @@ ser2 = serial.Serial('/dev/ttyUSB0', 9600)
 
 ref = cPickle.load(open('datasets.p', 'rb'))
 ref = ref.values()
+
+pplt.ion()
+
+xAxis = [0] * 50
+yAxis = [0] * 50
+pplt.axes()
+
+plotLine, = pplt.plot(xAxis)
+plotLine2, = pplt.plot(yAxis)
+pplt.ylim([0, 1023])
 
 while True:
     readingList = []
@@ -39,6 +50,19 @@ while True:
     elif "LEFT" in direction:
         ser2.write(b'3')
     elif direction == "BLINK" or direction == "DOWN":
-        ser.write(b'4')
+        ser2.write(b'4')
+
+    xAxis.append(l)
+    yAxis.append(r)
+    del xAxis[0]
+    del yAxis[0]
+
+    plotLine.set_xdata(np.arange(len(xAxis)))
+    plotLine.set_ydata(xAxis)
+
+    plotLine2.set_xdata(np.arange(len(yAxis)))
+    plotLine2.set_ydata(yAxis)
+
+    pplt.draw()
 
     ser.flushInput()
