@@ -5,6 +5,7 @@ import calib
 import serial
 import cPickle
 from matplotlib import pyplot as pplt
+import numpy as np
 
 a = calib.Calibrator()
 ser = serial.Serial('/dev/ttyACM0', 9600)
