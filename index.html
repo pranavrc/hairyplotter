@@ -7,6 +7,21 @@
         <link rel="stylesheet" href="index.css">
         <link rel="shortcut icon" type="image/png" href="favicon.ico">
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('.clicktoshow').click(function () {
+                    var text = $(this).text();
+                    if ($(this).next().is(':hidden')) {
+                        $(this).next().slideDown('fast');
+                        $(this).html(text + " ^ ");
+                    } else {
+                        $(this).next().slideUp('fast');
+                        $(this).html(text.slice(0, text.length - 2));
+                    }
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -55,6 +70,7 @@
             <hr />
             <div id="circuit">
                 <h3>Amplifying and filtering circuit.</h3>
+                The signals received from the electrodes are <a href="http://en.wikipedia.org/wiki/Noise_%28electronics%29">noisy</a>, so we need an amplification and filtering circuit to get rid of the noise.
             </div>
             <hr />
             <div id="arduino">
