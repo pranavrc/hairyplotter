@@ -3,17 +3,6 @@
 import os
 from math import sqrt
 
-positions = {1 : 'BLINK',
-             2 : 'UP',
-             3 : 'UP-RIGHT',
-             4 : 'RIGHT',
-             5 : 'DOWN-RIGHT',
-             6 : 'DOWN',
-             7 : 'DOWN-LEFT',
-             8 : 'LEFT',
-             9 : 'UP-LEFT',
-            10 : 'STRAIGHT'}
-
 def retSimilarity(dataset, reference, sim):
     mismatch = []
     xfilter = 0
@@ -64,6 +53,17 @@ def retSimilarity(dataset, reference, sim):
     return mismatch
 
 def classify(inList):
+    positions = {1 : 'BLINK',
+             2 : 'UP',
+             3 : 'UP-RIGHT',
+             4 : 'RIGHT',
+             5 : 'DOWN-RIGHT',
+             6 : 'DOWN',
+             7 : 'DOWN-LEFT',
+             8 : 'LEFT',
+             9 : 'UP-LEFT',
+            10 : 'STRAIGHT'}
+
     positionDemarc = positions.values()
     classify = {}
 
