@@ -61,13 +61,6 @@ class Calibrator:
             print 'Make the following eye gesture: %s' % pos
             self.countdown()
           
-            #goAhead = str(raw_input('Calibrate? (y(default)/n) '))
-
-            #if goAhead == 'n':
-            #    sys.exit(0)
-            #else:
-                #continue
-                #pass
             i = 0
             while (i < upper):
                 try:
