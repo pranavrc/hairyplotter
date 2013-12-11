@@ -4,10 +4,21 @@ import os
 from math import sqrt
 
 def retSimilarity(dataset, reference, sim):
+    ''' Take a dataset of live data from the Arduino,
+    take the reference dataset from the Pickle, and
+    calculate similarity/distance between the two.
+
+    sim - Type of metric to use.
+        1. Taxicab metric.
+        2. Euclidean distance.
+        3. Chebyshev distance.
+        4. Pearson coefficient. '''
+
     mismatch = []
     xfilter = 0
     yfilter = 0
 
+    # Iterate through the datasets in the reference (serialized data).
     for eachRefSet in range(len(reference)):
         refLength = len(reference[eachRefSet])
         mismatch.append(0)
@@ -15,20 +26,21 @@ def retSimilarity(dataset, reference, sim):
         firstSumSq, secondSumSq = 0, 0
         cumulativeSum = 0
 
+        # Apply similarity metrics on each tuple of values.
         for pair in range(refLength):
-            if sim == 1: #Taxicab
-                mismatch[eachRefSet] += 1 / (1 + (abs(dataset[pair][0] - reference[eachRefSet][pair][0]) + \
-                                                  abs(dataset[pair][1] - reference[eachRefSet][pair][1])))
+            if sim == 1: #Taxicab metric: http://en.wikipedia.org/wiki/Taxicab_geometry
+                mismatch[eachRefSet] += 1 / float(1 + (abs(dataset[pair][0] - reference[eachRefSet][pair][0]) + \
+                                                       abs(dataset[pair][1] - reference[eachRefSet][pair][1])))
 
-            elif sim == 2: #Euclidean
-                mismatch[eachRefSet] += 1 / (1 + sqrt(pow(dataset[pair][0] - reference[eachRefSet][pair][0], 2) \
-                                                      + pow(dataset[pair][1] - reference[eachRefSet][pair][1], 2)))
+            elif sim == 2: #Euclidean distance: http://en.wikipedia.org/wiki/Euclidean_distance
+                mismatch[eachRefSet] += 1 / float(1 + sqrt(pow(dataset[pair][0] - reference[eachRefSet][pair][0], 2) \
+                                                           + pow(dataset[pair][1] - reference[eachRefSet][pair][1], 2)))
 
-            elif sim == 3: #Chebyshev
+            elif sim == 3: #Chebyshev distance: http://en.wikipedia.org/wiki/Chebyshev_distance
                 xfilter += abs(dataset[pair][0] - reference[eachRefSet][pair][0])
                 yfilter += abs(dataset[pair][1] - reference[eachRefSet][pair][1])
 
-            elif sim == 4: #Pearson
+            elif sim == 4: #Pearson coefficient: http://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient
                 firstSum += dataset[pair][1]
                 secondSum += reference[eachRefSet][pair][1]
                 firstSumSq += pow(dataset[pair][1], 2)
@@ -36,8 +48,10 @@ def retSimilarity(dataset, reference, sim):
 
                 cumulativeSum += dataset[pair][1] * reference[eachRefSet][pair][1]
 
+        # Chebyshev and Pearson metrics return lower values for higher similarity,
+        # so we invert that such that they return higher values for higher similarity.
         if sim == 3:
-            mismatch[eachRefSet] = 1 / (1 + max(xfilter, yfilter))
+            mismatch[eachRefSet] = 1 / float(1 + max(xfilter, yfilter))
             xfilter, yfilter = 0, 0
 
         if sim == 4:
@@ -52,7 +66,27 @@ def retSimilarity(dataset, reference, sim):
 
     return mismatch
 
-def classify(inList):
+def scale(list_of_lists):
+    ''' Take a list of lists that contain similarity scores.
+    Find the mean of all the similarity scores in the list. '''
+
+    scaledScore = []
+    for x in range(len(list_of_lists[0])):
+        scaledScore.append(0)
+
+        for y in range(len(list_of_lists)):
+            scaledScore[x] += list_of_lists[y][x]
+
+        scaledScore[x] /= len(list_of_lists)
+
+    return scaledScore
+
+def classify(scaled_values):
+    ''' Take a list of scaled similarities and find out
+    which eye position has the list of values that is closest in
+    similarity to the currently acquired list of values from
+    the serial port. '''
+
     positions = {1 : 'BLINK',
              2 : 'UP',
              3 : 'UP-RIGHT',
@@ -67,33 +101,19 @@ def classify(inList):
     positionDemarc = positions.values()
     classify = {}
 
-    for a in range(len(inList)):
-        classify[inList[a]] = positionDemarc[a]
+    # Assign eye position to each scaled value in that order.
+    for a in range(len(scaled_values)):
+        classify[scaled_values[a]] = positionDemarc[a]
 
-    inList.sort()
+    scaled_values.sort()
 
-    return classify[inList[-1]]
-
-def scale(stuff):
-    scaledScore = []
-    for x in range(len(stuff[0])):
-        scaledScore.append(0)
-
-        for y in range(len(stuff)):
-            scaledScore[x] += stuff[y][x]
-
-        scaledScore[x] /= len(stuff)
-
-    return scaledScore
+    # Returning the eye position corresponding to highest similarity.
+    return classify[scaled_values[-1]]
 
 if __name__ == "__main__":
-    #serialize()
-    #a = cPickle.load(open('datasets.p', 'rb'))
-    a = [[(1,500),(3,510),(2,520),(3,530),(4,550),(5,600)]]
+    a = [[(1,500),(3,510),(2,520),(3,530),(4,550),(5,600)], [(5,600),(4,550),(3,530),(2,520),(3,510),(1,500)]]
     b = [(100,624),(531,652),(7,11800),(9,120),(2,500),(1,602)]
     c = scale([retSimilarity(b, a, 1), retSimilarity(b, a, 2), retSimilarity(b, a, 3)])
     d = scale([retSimilarity(b, a, 4)])
-    print c
-    print d
-    print classify(d)
     print classify(c)
+    print classify(d)
