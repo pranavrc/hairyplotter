@@ -73,7 +73,7 @@
                 The signals received from the electrodes are <a href="http://en.wikipedia.org/wiki/Noise_%28electronics%29">noisy</a>, so we need an amplification and filtering circuit to get rid of the noise. We're only interested in the frequency range of the usable signal that lies in the narrow bandwidth of around 1 Hz to 35 Hz. <i>Everything else be damned.</i><br /><br />
                 As for the Amplification, that's required because we're dealing with skin surface difference potentials in the range of microvolts. Our Arduino, meanwhile, has an input reading range of 0-5 V and it needs to comprehend what's going on.<br /><br />
                 Here are the components used:<br />
-                <span class="clicktoshow">Instrumentation Amplifier INA118.</span>
+                <span class="clicktoshow">Instrumentation Amplifier, INA118.</span>
                 <div class="hide">
                     Using the <a href="http://www.ti.com/product/ina118">INA118</a> Instrumentation Amplifier, we'll amp up the Gain all the way to 500. For this chip, we have the Gain formula <i>Gain = 1 + (50k&#8486;/Gain Resistance Rg)</i>.<br /><br />
 
@@ -81,16 +81,29 @@
 
                     <a href="images/instrumentation_amplifier.png"><img src="images/instrumentation_amplifier.png" alt="Instrumentation Amplifier"></a>
                 </div><br />
-                <span class="clicktoshow">Notch Filter LM358.</span>
+                <span class="clicktoshow">Notch Filter, LM358.</span>
                 <div class="hide">
                     We use an <a href="http://www.ti.com/product/lm358">LM358</a> OP-AMP with a cut-off frequency of 50 Hz and a Gain of 1.<br /><br />
                     Fo = 50 Hz, -&gt; C1 = C2 = 0.1&mu;F, R1 = R2 = 27k&#8486;, C3 = 0.2&mu;F and R3 = 62k&#8486;.<br /><br />
                     <a href="images/notch_filter.png"><img src="images/notch_filter.png" alt="Notch Filter"></a>
                 </div><br />
-                <span class="clicktoshow">Secondary Amplification with an Operational Amplifier.</span>
-                <div class="hide">3.</div><br />
-                <span class="clicktoshow">Secondary Filtering with a Low-Pass Filter.</span>
-                <div class="hide">4.</div><br />
+                <span class="clicktoshow">Low-Pass Filter.</span>
+                <div class="hide">
+                    Two cascaded first order filters with a passive circuit, making a second order filter.<br /><br />
+                    Fc = 16 Hz, C = 0.1&mu;F -&gt; R = 100k&#8486;.<br /><br />
+                    <a href="images/low_pass_filter.png"><img src="images/low_pass_filter.png" alt="Low Pass Filter"></a>
+                </div><br />
+                <span class="clicktoshow">High-Pass Filter.</span>
+                <div class="hide">
+                    A simple differentiator circuit can be used to remove DC <i>drifts</i> or act as a high-pass filter. In conjunction with the low-pass filter, this essentially acts as a band-pass filter.<br /><br />
+                    dv/dt = 0 -&gt; I = 0 &there4; V = 0 &#8757; V = IR -&gt; V = 0 * R -&gt; V = 0.<br /><br />
+                    <a href="images/dc_drift_removal.png"><img src="images/dc_drift_removal.png" alt="DC Drift Removal"></a>
+                </div><br />
+                <span class="clicktoshow">Non-Inverting Amplifier, LM358.</span>
+                <div class="hide">
+                    We use another LM358 OP-AMP as a non-inverting amplifier for secondary amplification. We'll amp up the gain to 20.<br /><br />
+                    <a href="images/non_inverting_amplifier.png"><img src="images/non_inverting_amplifier.png" alt="Non Inverting Amplifier"></a>
+                </div><br />
                 <span class="clicktoshow">Final Circuit.</span>
                 <div class="hide">5.</div><br />
             </div>
