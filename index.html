@@ -104,6 +104,16 @@
                     We use another LM358 OP-AMP as a non-inverting amplifier for secondary amplification. We'll amp up the gain to 20.<br /><br />
                     <a href="images/non_inverting_amplifier.png"><img src="images/non_inverting_amplifier.png" alt="Non Inverting Amplifier"></a>
                 </div><br />
+                <span class="clicktoshow">DC Offset.</span>
+                <div class="hide">
+                    We'll inject DC offset using a potentiometer, in order to ensure that the input to the ADC of the Arduino doesn't stray outside of 0 V to 5 V.<br /><br />
+                    <a href="images/dc_offset.png"><img src="images/dc_offset.png" alt="DC Offset"></a>
+                </div><br />
+                <span class="clicktoshow">Voltage Follower Circuit.</span>
+                <div class="hide">
+                    Run-of-the-mill OP-AMP <a href="http://www.ti.com/product/lm741">LM741</a> to get the output voltage to <i>follow</i> the input voltage.<br /><br />
+                    <a href="images/voltage_follower.png"><img src="images/voltage_follower.png" alt="Voltage Follower"></a>
+                </div><br />
                 <span class="clicktoshow">Final Circuit.</span>
                 <div class="hide">5.</div><br />
             </div>
