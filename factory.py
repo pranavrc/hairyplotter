@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 
-"""
-Writing datasets to a Pickle.
-Pranav Ravichandran <me@onloop.net>
-"""
-
-import cPickle
 import os
 from math import sqrt
 
