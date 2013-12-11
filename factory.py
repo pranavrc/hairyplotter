@@ -14,36 +14,6 @@ positions = {1 : 'BLINK',
              9 : 'UP-LEFT',
             10 : 'STRAIGHT'}
 
-datasetLength = 0
-
-def serialize():
-    dataset = []
-
-    #datasetCount = int(raw_input("How many data sets? "))
-    datasetCount = len(positions)
-
-    datasetLength = int(raw_input("Length of each dataset: "))
-
-    for count in range(datasetCount):
-        dataset.append([])
-        print '----'
-        for x in range(datasetLength):
-            print "Data " + str(x + 1) + " for set " + positions[count + 1] + ": "
-
-            while True:
-                try:
-                    data = (int(raw_input("x - ")), int(raw_input("y - ")))
-                except ValueError:
-                    print "That's not an integer. Let's try again."
-                    continue
-                break
-
-            dataset[count].append(data)
-
-    cPickle.dump(dataset, open('datasets.p', 'wb'))
-
-    return True
-
 def retSimilarity(dataset, reference, sim):
     mismatch = []
     xfilter = 0
