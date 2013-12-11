@@ -158,11 +158,16 @@
             </div>
             <hr />
             <div id="arduino">
-                <h3>Arduino - The Microcontroller.</h3>
+                <h3>Arduino and some Frontend code.</h3>
+                Our Arduino here initializes serial communication and provides the native serial interface between the apparatus and the Computer through an USB Port. It maps circuit behavior to serial outputs of a preset pattern which can then be parsed or 'depatterned' with a general-purpose programming language, say, like Python.<br /><br />
+                We use an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Arduino Uno</a> which comes with an ATmega328 Chip. 3 connectors connect our PCB with the Arduino board - one of them is connected to the GND pin, while the other two transmit the PCB output to analog pins ANALOG IN 0 and ANALOG IN 1. And of course, there's a USB connection to our Computer.<br /><br />
+                Here's the code running on our Arduino to continuously transmit values over the connection:<br /><br />
+                <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/readandprint.ino"></script>
+                As you can see, we're using commas to delimit the values from the left and right electrodes so that we can parse the values back out on the backend with Python.
             </div>
             <hr />
             <div id="code">
-                <h3>Computer and some code.</h3>
+                <h3>Computer and some Backend code.</h3>
             </div>
         </div><br />
         <hr /><br />
