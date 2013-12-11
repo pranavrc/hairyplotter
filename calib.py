@@ -36,7 +36,6 @@ class Calibrator:
 
         self.calibrate(self.maxVal)
         self.store(self.positions)
-        #self.acv = self.read()
 
     def countdown(self, bufferTime = 3, printCount = True):
         while bufferTime > 0:
@@ -50,13 +49,6 @@ class Calibrator:
         s = serial.Serial(port, baudrate)
         return s
 
-    #def loopifier(count):
-    #    def loopy(func):
-    #        for i in range(count):
-    #            func(self.positions.keys()[i])
-    #    return loopy
-
-    #@loopifier(len(self.positions))
     def calibrate(self, upper):
         serialObj = self.openSerialPort('/dev/ttyACM0', 9600)
 
@@ -105,4 +97,3 @@ class Calibrator:
 
 if __name__ == "__main__":
     a = Calibrator()
-    #print a.acv
