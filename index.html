@@ -70,9 +70,17 @@
             <hr />
             <div id="circuit">
                 <h3>Amplifying and filtering circuit.</h3>
-                The signals received from the electrodes are <a href="http://en.wikipedia.org/wiki/Noise_%28electronics%29">noisy</a>, so we need an amplification and filtering circuit to get rid of the noise. We do this in four stages:<br />
+                The signals received from the electrodes are <a href="http://en.wikipedia.org/wiki/Noise_%28electronics%29">noisy</a>, so we need an amplification and filtering circuit to get rid of the noise. We're only interested in the frequency range of the usable signal that lies in the narrow bandwidth of around 1 Hz to 35 Hz. <i>Everything else be damned.</i><br /><br />
+                As for the Amplification, that's required because we're dealing with skin surface difference potentials in the range of microvolts. Our Arduino, meanwhile, has an input reading range of 0-5 V and it needs to comprehend what's going on.<br /><br />
+                We do this whole process in several stages:<br />
                 <span class="clicktoshow">Primary Amplification with an Instrumentation Amplifier.</span>
-                <div class="hide">1.</div><br />
+                <div class="hide">
+                    Using the <a href="http://www.ti.com/product/ina118">INA118</a> Instrumentation Amplifier, we'll amp up the Gain all the way to 500. For this chip, we have the Gain formula <i>Gain = 1 + (50K&#8486;/Gain Resistance Rg)'</i>.<br /><br />
+
+                    That should give us the value of Rg as 100&#8486;.<br /><br />
+
+                    <a href="images/instrumentation_amplifier.png"><img src="images/instrumentation_amplifier.png" alt="Instrumentation Amplifier"></a>
+                </div><br />
                 <span class="clicktoshow">Primary Filtering with a High-Pass Filter.</span>
                 <div class="hide">2.</div><br />
                 <span class="clicktoshow">Secondary Amplification with an Operational Amplifier.</span>
