@@ -114,8 +114,28 @@
                     Run-of-the-mill OP-AMP <a href="http://www.ti.com/product/lm741">LM741</a> to get the output voltage to <i>follow</i> the input voltage.<br /><br />
                     <a href="images/voltage_follower.png"><img src="images/voltage_follower.png" alt="Voltage Follower"></a>
                 </div><br />
-                <span class="clicktoshow">Final Circuit.</span>
-                <div class="hide">5.</div><br />
+                <span class="clicktoshow">Simplified Final Circuit.</span>
+                <div class="hide">
+                    Here's a simplified, final version of all the pandemonium that's going on:<br /><br />
+                    <a href="images/final_eog_ckt.png"><img src="images/final_eog_ckt.png" alt="Final EOG Circuit"></a><br /><br />
+                    Note that RE/LE and UE/DE are the Right, Left, Up and Down Electrodes respectively. The whole circuit can be condensed down to a series of stages:<br />
+                    <ol>
+                        <li><strong>Instrumentation Amplifier</strong> with a Gain of 101 (Rg = 500&#8486;).</li>
+                        <li>
+                            <strong>Passive high-pass Filter.</strong><br />
+                            C = 10&mu;F and R=100k&#8486;, Cut-off frequency fc = 1/(2&Pi;(100k&#8486;)(10&mu;F)) &#8776; 0.155 Hz.
+                        </li>
+                        <li><strong>Secondary Amplification with adjustable gain</strong> (minimum gain is 51 (Rg = 1k&#8486;)); this stage also provides a DC Offset of 2.5V to center the output between the 0 to +5 V range required by the Arduino.</li>
+                        <li>
+                            <strong>Passive low-pass Filter.</strong><br />
+                            C = 10&mu;F and R=560&#8486;, Cut-off frequency fc = 1/(2&Pi;(560&#8486;)(10&mu;F)) &#8776; 28.42 Hz.
+                        </li>
+                    </ol>
+
+                    The combination of the HPF and the LPF effectively creates a band-pass filter with a pass range of 0.155 Hz to 28.42 Hz.<br />
+                    <i>Voila!</i><br />
+                    That's pretty close to the 1-35 Hz pass range that we were aiming for!
+                </div><br />
             </div>
             <hr />
             <div id="arduino">
