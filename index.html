@@ -223,6 +223,22 @@
                 </div><br />
                 We also messed around with live sockets (<a href="http://www.gevent.org/">gevent</a>) to enable webpage scrolling with the eyes, but it's a mostly failed/defunct experiment that you can find <a href="https://github.com/pranavrc/hairyplotter/blob/master/extras/plug.py">here</a>.
             </div>
+            <hr />
+            <div id="improvements">
+                <h3>Usability and improvements.</h3>
+                <i>"Your product is bad, and you should feel bad." - Groucho Marx</i><br />
+                <i>"Bullshit." - Argus Filch</i><br />
+                <i>"Come on baby, light my tyre." - Toy car</i><br /><br />
+
+                After all that commotion, we now have a proof-of-proof-of-concept, but it's far from usable. But that's fine, we weren't really starting up here. A lot of improvements could be made, and here are some ideas:<br />
+
+                <ol>
+                    <li>To avoid clutter, we could go <a href="http://arduino.cc/en/Main/ArduinoWirelessShield">Wireless</a>.</li>
+                    <li>The serialization takes time, so we could use an in-memory store like <a href="http://redis.io/">Redis</a> or <a href="http://memcached.org/">memcached</a> to speed up the process.</li>
+                    <li>We could look into ultra-small and faster ADC alternatives to the Arduino, such that everything could be built into a small compartment attached to the glass frame itself.</li>
+                    <li>We could use <a href="http://en.wikipedia.org/wiki/Assembly_language">Assembly</a> instead of Python. Sadly, we weren't feeling suicidal, so that never happened.</li>
+                </ol>
+            </div>
         </div><br />
         <hr /><br />
         <div id="footer">&copy; <a href="mailto:jona.mailbox@gmail.com">Jona Frank</a> and <a href="mailto:me@onloop.net">Pranav Ravichandran</a>.</div><br />
