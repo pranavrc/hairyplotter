@@ -50,7 +50,7 @@ while True:
     # Calculate similarity, scale and classify.
     scaled = factory.scale([factory.retSimilarity(readingList, ref, 1), \
                             factory.retSimilarity(readingList, ref, 2), \
-                            factory.retSimilarity(readingList, ref, 3),
+                            factory.retSimilarity(readingList, ref, 3), \
                             factory.retSimilarity(readingList, ref, 4)])
     direction = factory.classify(scaled)
     print direction
