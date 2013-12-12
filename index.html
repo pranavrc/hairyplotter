@@ -158,19 +158,44 @@
             </div>
             <hr />
             <div id="arduino">
-                <h3>Arduino and some Frontend code.</h3>
+                <h3>Arduino and some pseudo-Frontend code.</h3>
                 Our Arduino here initializes serial communication and provides the native serial interface between the apparatus and the Computer through an USB Port. It maps circuit behavior to serial outputs of a preset pattern which can then be parsed or 'depatterned' with a general-purpose programming language, say, like Python.<br /><br />
-                We use an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Arduino Uno</a> which comes with an ATmega328 Chip. 3 connectors connect our PCB with the Arduino board - one of them is connected to the GND pin, while the other two transmit the PCB output to analog pins ANALOG IN 0 and ANALOG IN 1. And of course, there's a USB connection to our Computer.<br /><br />
+                <a href="images/arduino_uno.jpg"><img src="images/arduino_uno.jpg" alt="Arduino Uno"></a><br /><br />
+                We use an <a href="http://arduino.cc/en/Main/arduinoBoardUno">Arduino Uno</a> which comes with an ATmega328 Chip. 3 connectors connect our PCB with the Arduino board - one of them is connected to the <strong>GND</strong> pin, while the other two transmit the PCB output to analog pins <strong>ANALOG IN A0</strong> and <strong>ANALOG IN A1</strong>. And of course, there's a USB connection to our Computer.<br /><br />
                 Here's the code running on our Arduino to continuously transmit values over the connection:<br /><br />
                 <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/readandprint.ino"></script>
                 As you can see, we're using commas to delimit the values from the left and right electrodes so that we can parse the values back out on the backend with Python.
             </div>
             <hr />
             <div id="code">
-                <h3>Computer and some Backend code.</h3>
+                <h3>Computer and some pseudo-Backend code.</h3>
+                So now we're receiving data over a USB Serial Port from the Arduino. All that's left is to crunch the data and find out what those eyes are up to. Here's what we're gonna do:<br />
+                <ol>
+                    <li><i>"Hey, look down, will ya? I need to know what kind of signals I get from your eyes when you look down."</i><br />
+                    <strong>Calibration</strong>. Ask the user to wear the eyepiece and calibrate the backend for each eye position.
+                    </li>
+                    <li><i>"Hey, the signals I'm getting from your eyes now seem very similar to the signals that I got earlier when you were looking down. So you must be looking down now!"</i><br />
+                    <strong>Classification</strong>. Use the stored dataset from Calibration as reference to do some live classification.
+                    </li>
+                </ol>
+
+                We chose to use <a href="http://python.org">Python</a> for the task.<br /><br />
+
+                Calibration is a step-by-step process where the user is prompted to move her/his eyes to different positions to record the signals received at each position. This data is then stored as a reference for live classification. Here's the code (comments and explanation inline):<br />
+                <span class="clicktoshow">Show.</span>
+                <div class="hide">
+                    <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/calib.py"></script>
+                </div><br />
+                Great, now we have <a href="http://github.com/pranavrc/hairyplotter/blob/master/datasets.p">the serialized dataset</a> for reference! On to live classification.<br /><br />
+                The Classification module consists of a few standalone functions that help, uhm, classify live data with respect to the reference dataset we just serialized. Here's the code (comments and explanation inline):<br />
+                <span class="clicktoshow">Show.</span>
+                <div class="hide">
+                    <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/factory.py"></script>
+                </div><br />
+                Alright, so now we've setup the whole workflow of the Electrooculogram, enabling us to track eye movements live.
             </div>
         </div><br />
         <hr /><br />
-        <div id="footer">&copy; <a href="mailto:jona.mailbox@gmail.com">Jona Frank</a> and <a href="mailto:me@onloop.net">Pranav Ravichandran</a>.</div>
+        <div id="footer">&copy; <a href="mailto:jona.mailbox@gmail.com">Jona Frank</a> and <a href="mailto:me@onloop.net">Pranav Ravichandran</a>.</div><br />
     </body>
 </html>
