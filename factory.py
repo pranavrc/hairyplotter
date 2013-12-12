@@ -48,8 +48,7 @@ def retSimilarity(dataset, reference, sim):
 
                 cumulativeSum += dataset[pair][1] * reference[eachRefSet][pair][1]
 
-        # Chebyshev and Pearson metrics return lower values for higher similarity,
-        # so we invert that such that they return higher values for higher similarity.
+        # Additional calculations for Chebyshev and Pearson metrics.
         if sim == 3:
             mismatch[eachRefSet] = 1 / float(1 + max(xfilter, yfilter))
             xfilter, yfilter = 0, 0
@@ -113,7 +112,9 @@ def classify(scaled_values):
 if __name__ == "__main__":
     a = [[(1,500),(3,510),(2,520),(3,530),(4,550),(5,600)], [(5,600),(4,550),(3,530),(2,520),(3,510),(1,500)]]
     b = [(100,624),(531,652),(7,11800),(9,120),(2,500),(1,602)]
-    c = scale([retSimilarity(b, a, 1), retSimilarity(b, a, 2), retSimilarity(b, a, 3)])
+    c = [retSimilarity(b, a, 1), retSimilarity(b, a, 2), retSimilarity(b, a, 3), retSimilarity(b, a, 4)]
     d = scale([retSimilarity(b, a, 4)])
-    print classify(c)
+    print c
+    print scale(c)
+    print classify(scale(c))
     print classify(d)
