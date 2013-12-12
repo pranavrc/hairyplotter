@@ -8,9 +8,6 @@ import gevent
 import gevent.monkey
 from flask import Flask, request, Response, render_template
 
-#gevent.monkey.patch_all()
-#app = Flask(__name__)
-
 gevent.monkey.patch_all()
 app = Flask(__name__)
 
