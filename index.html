@@ -193,12 +193,34 @@
                 <div class="hide">
                     <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/factory.py"></script>
                 </div><br />
-                Alright, so now we've setup the whole workflow of the Electrooculogram, enabling us to track eye movements live. On.
+                <i>Houston, we have activity!</i><br /><br />
+                <a href="images/sample_graph.png"><img src="images/sample_graph.png" alt="EOG activity"></a><br /><br />
+                That's ocular activity live! Alright, so now we've setup the whole workflow of the Electrooculogram, enabling us to track eye movements live. On.
             </div>
             <hr />
             <div id="plugins">
-                <h3>There is no spoon. No, really!</h3>
+                <h3>There is no spoon - Moving cursors and toy cars.</h3>
+                Our classifier now spouts out RIGHT! when the eyes move right. That's a bit of a stretch, but yeah, the general idea is that our computer now knows where the eyes are positioned. With that kind of power, we can move the world, but we'll be nice and move cursors and toy cars instead.<br /><br />
 
+                <strong>Cursor movement:</strong> For moving the cursor, we use <a href="https://github.com/pepijndevos/PyMouse">PyMouse</a>. We initially place the cursor at the center of the screen, and for each update on the eye position, we accelerate the cursor in that general direction. Blinking does a mouse-click.<br /><br />
+                We hired a test subject for validation:<br /><br />
+                <a href="images/mousepointer.gif"><img src="images/mousepointer.gif" alt="Cat testing cursor movement"></a><br /><br />
+                On a more serious note, it doesn't work as seamlessly, but some movement in the appropriate direction is observed with some (read: <i>some bad</i>) lag. Here's the code (comments inline):<br />
+                <span class="clicktoshow">Show.</span>
+                <div class="hide">
+                    <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/cursor.py"></script>
+                </div><br /><br />
+
+                <strong>Toy car navigation:</strong> This requires an additional microcontroller that provides input to a certain wheel of the toy car based on the position of the eye.<br /><br />
+
+                <a href="images/toy_car.jpg"><img src="images/toy_car.jpg" alt="Arduino-controlled toy car"></a><br /><br />
+
+                A different Arduino is connected to a different serial port, that has some fairly straight-forward code which receives data from the computer and writes output to the respective motors, all of which are connected to different output pins. Here's the code (comments inline):<br />
+                <span class="clicktoshow">Show.</span>
+                <div class="hide">
+                    <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/wheel.py"></script>
+                </div><br />
+                We also messed around with live sockets (<a href="http://www.gevent.org/">gevent</a>) to enable webpage scrolling with the eyes, but it's a mostly failed/defunct experiment that you can find <a href="https://github.com/pranavrc/hairyplotter/blob/master/extras/plug.py">here</a>.
             </div>
         </div><br />
         <hr /><br />
