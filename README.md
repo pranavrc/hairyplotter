@@ -1,4 +1,6 @@
 hairyplotter
 ============
 
-Eye Position Classification for ElectroOculogram (Acad project).
+Recognizing and classifying eye gestures using an Electrooculogram made with an Arduino and a Computer.
+
+http://onloop.net/hairyplotter
