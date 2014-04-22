@@ -188,10 +188,11 @@
                     <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/calib.py"></script>
                 </div><br />
                 Great, now we have <a href="http://github.com/pranavrc/hairyplotter/blob/master/datasets.p">the serialized dataset</a> for reference! On to live classification.<br /><br />
-                The <strong>Classification</strong> module consists of a few standalone functions that help, uhm, classify live data with respect to the reference dataset we just serialized. Here's the code (comments and explanation inline):<br />
+                The <strong>Classification</strong> module consists of two implementations that classify live data with respect to the reference dataset we just serialized. One is a barebones approach where we calculate different distance metrics between the dataset and the live data, and take the mean of these metrics since they scale up in linear fashion. Another approach is to use <a href="http://en.wikipedia.org/wiki/Support_vector_machine" target="_blank">Support Vector Machines</a> and <a href="http://en.wikipedia.org/wiki/Linear_discriminant_analysis" target="_blank">Linear Discriminant Analysis</a> using the <a href="http://scikit-learn.org/stable/" target="_blank">scikit-learn</a> library. Here's the code (comments and explanation inline):<br />
                 <span class="clicktoshow">Show.</span>
                 <div class="hide">
                     <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/factory.py"></script>
+                    <script src="http://gist-it.appspot.com/github/pranavrc/hairyplotter/blob/master/svm_lda.py"></script>
                 </div><br />
                 <i>Houston, we have activity!</i><br /><br />
 
